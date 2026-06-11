@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электронный архив: Двор Павла Герасимова Щипакина</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --accent: #2980b9;
+            --border-color: #dcdde1;
+            --dead-color: #c0392b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 20px;
+        }
+        h1 { margin-bottom: 5px; color: var(--text-main); }
+        .meta-source { font-style: italic; color: var(--text-muted); }
+
+        /* Географический таймлайн */
+        .geography-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .geo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .geo-point {
+            padding: 15px;
+            border-left: 4px solid var(--accent);
+            background: #f8f9fa;
+        }
+        .geo-point h4 { margin: 0 0 5px 0; color: var(--accent); }
+
+        /* Сетка жителей */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .card.dead { border-top: 4px solid var(--dead-color); }
+        .card.alive { border-top: 4px solid var(--accent); }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        .dead .status-badge { background: #f9d5d5; color: var(--dead-color); }
+        .alive .status-badge { background: #d5e8f9; color: var(--accent); }
+
+        .card h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+        .card p { margin: 5px 0; font-size: 0.9rem; }
+        .relations {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        /* Блок источников */
+        .sources-section {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        .sources-section h2 { margin-top: 0; color: #3498db; }
+        blockquote {
+            background: #34495e;
+            border-left: 5px solid #3498db;
+            margin: 15px 0;
+            padding: 15px;
+            font-style: italic;
+        }
+        .btn-link {
+            display: inline-block;
+            background: #3498db;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .btn-link:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Родовое гнездо Павла Герасимова Щипакина</h1>
+        <div class="meta-source">По материалам III ревизии (1762–1764 гг.) • Преображенский завод</div>
+    </header>
+
+    <!-- ТОПОЛОГИЯ МИГРАЦИИ -->
+    <section class="geography-section">
+        <h2>📍 Географическая топология двора (Перевод 1757 г.)</h2>
+        <div class="geo-grid">
+            <div class="geo-point">
+                <h4>Деревня Тимошкина</h4>
+                <p class="meta-source">Симбирский уезд</p>
+                <p>Родина Павла, Бориса, Трофима и их вдов. Исходная точка ветки.</p>
+            </div>
+            <div class="geo-point">
+                <h4>Село Белый Ключ</h4>
+                <p class="meta-source">Симбирский уезд</p>
+                <p>Родина Крестиньи Лукояновой (жены Михаила Борисова).</p>
+            </div>
+            <div class="geo-point">
+                <h4>Село Егорьевское</h4>
+                <p class="meta-source">Нижегородский уезд</p>
+                <p>Родина Офимьи Семеновой (жены Ивана Трофимова).</p>
+            </div>
+            <div class="geo-point">
+                <h4>Преображенский завод</h4>
+                <p class="meta-source">Южный Урал</p>
+                <p>Финальная точка сборки. Место рождения Василия Михайлова (1761 г.р.).</p>
+            </div>
+        </div>
+    </section>
+
+    <h2>👥 Персоналии двора по категориям</h2>
+
+    <!-- СЕТКА ЖИТЕЛЕЙ -->
+    <div class="grid">
+
+        <!-- Павел -->
+        <div class="card dead">
+            <span class="status-badge">УМРЕ В 1760</span>
+            <h3>Павел Герасимов Щипакин</h3>
+            <p><strong>Годы жизни:</strong> ~1682 – 1760 (около 78 лет)</p>
+            <p><strong>Статус:</strong> Родоначальник уральской ветки. Записан умершим.</p>
+        </div>
+
+        <!-- Борис -->
+        <div class="card dead">
+            <span class="status-badge">УМРЕ В 1755</span>
+            <h3>Борис Павлов Щипакин</h3>
+            <p><strong>Годы жизни:</strong> ~1715 – 1755 (около 40 лет)</p>
+            <p><strong>Статус:</strong> Сын Павла. Умер в Симбирске до физического перевода.</p>
+            <div class="relations">
+                <strong>Семья:</strong> вдова Пелагея Никитина, сын Михаил.
+            </div>
+        </div>
+
+        <!-- Трофим -->
+        <div class="card dead">
+            <span class="status-badge">УМРЕ В 1756</span>
+            <h3>Трофим Павлов Щипакин</h3>
+            <p><strong>Годы жизни:</strong> ~1718 – 1756 (около 38 лет)</p>
+            <p><strong>Статус:</strong> Сын Павла. Умер в Симбирске до физического перевода.</p>
+            <div class="relations">
+                <strong>Семья:</strong> вдова Степанида Иванова, дети: Иван, Прасковья, Кирила.
+            </div>
+        </div>
+
+        <!-- Вдова Пелагея -->
+        <div class="card alive">
+            <span class="status-badge">51 ГОД</span>
+            <h3>Пелагея Никитина Щипакина</h3>
+            <p><strong>Год рождения:</strong> ~1711 • вдова Бориса</p>
+            <p><strong>Происхождение:</strong> куплена из д. Тимошкиной</p>
+            <div class="relations">
+                <strong>Вместе с ней:</strong> сын Михаил (~1743 г.р.), невестка Крестинья, внук Василий.
+            </div>
+        </div>
+
+        <!-- Вдова Степанида -->
+        <div class="card alive">
+            <span class="status-badge">31 ГОД</span>
+            <h3>Степанида Иванова Щипакина</h3>
+            <p><strong>Год рождения:</strong> ~1733 • вдова Трофима</p>
+            <p><strong>Происхождение:</strong> куплена из д. Тимошкиной</p>
+            <div class="relations">
+                <strong>Вместе с ней:</strong> дети Иван (21 год), Прасковья (17 лет), Кирила (9 лет), невестка Офимья.
+            </div>
+        </div>
+
+        <!-- Михаил Борисов -->
+        <div class="card alive">
+            <span class="status-badge">23 ГОДА</span>
+            <h3>Михаил Борисов Щипакин</h3>
+            <p><strong>Год рождения:</strong> ~1743 (5 лет по II ревизии)</p>
+            <p><strong>Статус:</strong> Внук Павла, глава своей подветки в общем дворе.</p>
+            <div class="relations">
+                <strong>Жена:</strong> Крестинья Лукоянова (21 год, из с. Белый Ключ)<br>
+                <strong>Сын:</strong> Василий (1 год, рожден на заводе)
+            </div>
+        </div>
+
+        <!-- Иван Трофимов -->
+        <div class="card alive">
+            <span class="status-badge">21 ГОД</span>
+            <h3>Иван Трофимов Щипакин</h3>
+            <p><strong>Год рождения:</strong> ~1742 (3 года по II ревизии)</p>
+            <p><strong>Статус:</strong> Внук Павла, учтен при матери-вдове Степаниде.</p>
+            <div class="relations">
+                <strong>Жена:</strong> Офимья Семенова (21 год, из с. Егорьевского)
+            </div>
+        </div>
+
+        <!-- Прасковья Трофимова -->
+        <div class="card alive">
+            <span class="status-badge">17 ЛЕТ</span>
+            <h3>Прасковья Трофимова дочь</h3>
+            <p><strong>Год рождения:</strong> ~1747</p>
+            <p><strong>Статус:</strong> Дочь Трофима, девица при дворе.</p>
+        </div>
+
+        <!-- Кирила Трофимов -->
+        <div class="card alive">
+            <span class="status-badge">9 ЛЕТ</span>
+            <h3>Кирила Трофимов Щипакин</h3>
+            <p><strong>Год рождения:</strong> ~1755</p>
+            <p><strong>Статус:</strong> Младший сын Трофима, рожден после II ревизии.</p>
+        </div>
+
+    </div>
+
+    <!-- ДОКАЗАТЕЛЬНАЯ БАЗА -->
+    <section class="sources-section">
+        <h2>📄 Первоисточники и верификация данных</h2>
+
+        <h3>РГАДА. Фонд 350. Опись 2. Книга 2456. Лист 203</h3>
+        <blockquote>
+            «Павель Герасимовъ (63) — умре в 760 году... Борисъ (30) — умре в 755 году... Трофимъ (27) — умре в 756 году... у Ивана жена Офимья Семенова (21) взята Нижгородскаго уезду села Егорьевскаго...»
+        </blockquote>
+
+        <h3>ГАСО. Фонд 115. Опись 1. Дело 176. Лист 219</h3>
+        <p>Документ Третьей ревизии полностью оцифрован и доступен в электронной библиотеке Государственного архива Свердловской области.</p>
+        <a href="https://metriki.gaso-ural.ru/show/images/1351465" target="_blank" class="btn-link">🔗 Открыть архивное дело онлайн (ГАСО, Л. 219)</a>
+    </section>
+</div>
+
+</body>
+</html>

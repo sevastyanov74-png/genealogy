@@ -1,6 +1,8 @@
 ---
-title: Welcome to Quartz
+title: Генеалогический архив
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+- [[Генеалогия/20_Персоны|Персоны]]
+- [[Генеалогия/21_Дворы|Дворы]]
+- [[Генеалогия/11_Источники|Источники]]
+- [[Генеалогия/30_События|События]]

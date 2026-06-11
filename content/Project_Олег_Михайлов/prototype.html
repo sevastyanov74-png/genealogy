@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Georgia', serif; background: #f0f0f0; margin: 20px; }
+        .wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1200px; margin: auto; }
+
+        /* Таблица - профессиональный вид */
+        .archive-table { background: #e2efda; border-collapse: collapse; width: 100%; border: 1px solid #76a066; }
+        .archive-table th { background: #c6e0b4; padding: 10px; border: 1px solid #76a066; text-align: left; }
+        .archive-table td { padding: 8px; border: 1px solid #76a066; }
+
+        /* Скан */
+        .doc-view { background: white; padding: 10px; border: 1px solid #ccc; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        img { width: 100%; }
+
+        /* Ось */
+        .nav-axis { background: #2c3e50; color: #fff; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-axis">
+        <strong>Главная линия проекта:</strong> Павел ➔ Трофим ➔ Иван
+    </div>
+
+    <div class="wrapper">
+        <div class="doc-view">
+            <h3>Оригинал (лист 203)</h3>
+            <img src="изображение_18.png" alt="Скан">
+        </div>
+
+        <div>
+            <h3>Реконструкция двора</h3>
+            <table class="archive-table">
+                <tr><th>Персоналии</th><th>Возраст</th><th>Год</th></tr>
+                <tr><td>Павелъ Герасимовъ</td><td>63</td><td>760</td></tr>
+                <tr><td>Борисъ, Трофимъ (дети)</td><td>30/27</td><td>755/756</td></tr>
+                <tr><td>Пелагея Никитина (жена Бориса)</td><td>51</td><td>-</td></tr>
+                <tr><td>Степанида Иванова (жена Трофима)</td><td>31</td><td>-</td></tr>
+                <tr><td>Иванъ, Кирила, Прасковья (дети Трофима)</td><td>21/9/17</td><td>-</td></tr>
+                <tr><td>Офимья Семенова (жена Ивана)</td><td>21</td><td>-</td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

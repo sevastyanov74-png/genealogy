@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электронный архив: Двор Павла Герасимова Щипакина</title>
+    <style>
+        :root {
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --accent: #2980b9;
+            --border-color: #dcdde1;
+            --dead-color: #c0392b;
+            --gold-main: #d4af37;
+            --gold-bg: #fffdf3;
+            --silver-bg: #fafdff;
+            --archive-bg: #fdf6e3; /* Цвет старой бумаги для первоисточника */
+            --archive-border: #e6dfcb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 20px;
+        }
+        h1 { margin: 0 0 5px 0; font-size: 1.8rem; }
+        .meta-source { font-style: italic; color: var(--text-muted); }
+
+        /* ДВУХКОЛОНОЧНЫЙ МАКЕТ: ДОКУМЕНТ VS СТРУКТУРА */
+        .workspace-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 25px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .workspace-layout { grid-template-columns: 1fr; }
+        }
+
+        /* КОЛОНКА А: ПЕРВОИСТОЧНИК (РЕВИЗСКАЯ СКАЗКА) */
+        .archive-source-box {
+            background-color: var(--archive-bg);
+            border: 1px solid var(--archive-border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 20px;
+        }
+        .archive-source-box h3 {
+            margin-top: 0;
+            color: #856404;
+            border-bottom: 1px solid var(--archive-border);
+            padding-bottom: 10px;
+            font-family: "Georgia", serif;
+        }
+        .archive-meta {
+            font-size: 0.85rem;
+            color: #a0522d;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .document-text {
+            font-family: "Georgia", serif;
+            font-size: 0.95rem;
+            color: #3d3522;
+            line-height: 1.7;
+            white-space: pre-line; /* Сохраняет переносы строк оригинала */
+        }
+        /* Подсветка строк в первоисточнике при фокусе */
+        .doc-line {
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        .doc-line:hover {
+            background-color: rgba(212, 175, 55, 0.15);
+        }
+
+        /* КОЛОНКА Б: РЕКОНСТРУКЦИЯ ДВОРА */
+        .yard-container {
+            background: #fff;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .yard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .yard-title { margin: 0; font-size: 1.4rem; color: var(--accent); }
+        .yard-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* ВЕРТИКАЛЬНАЯ ГЕНЕАЛОГИЧЕСКАЯ ОСЬ (Внутри двора) */
+        .axis-vertical-box {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--gold-main);
+        }
+        .axis-vertical-box h4 { margin: 0 0 15px 0; color: var(--gold-main); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        .tree-vertical { display: flex; flex-direction: column; gap: 8px; position: relative; padding-left: 15px; }
+        .tree-vertical::before {
+            content: ''; position: absolute; left: 5px; top: 12px; bottom: 12px; width: 2px; background: rgba(212, 175, 55, 0.3);
+        }
+        .tree-level { display: flex; align-items: center; position: relative; }
+        .tree-level::before {
+            content: ''; position: absolute; left: -14px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: var(--gold-main); border-radius: 50%;
+        }
+        .level-num { font-size: 0.75rem; color: var(--gold-main); font-weight: bold; width: 90px; flex-shrink: 0; }
+        .level-content { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+        .node-link { text-decoration: none; color: inherit; }
+        .node-p { padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.85rem; }
+        .node-p.male { border-color: var(--gold-main); background: rgba(212, 175, 55, 0.15); font-weight: bold; }
+        .node-p.female { border-color: #5fa2dd; background: rgba(95, 162, 221, 0.15); font-style: italic; }
+        .node-p.active { box-shadow: 0 0 8px var(--gold-main); }
+
+        /* СПИСОК ЖИТЕЛЕЙ ДВОРА (Сетка карточек) */
+        .yard-residents-title { font-size: 1.1rem; margin: 20px 0 10px 0; color: var(--text-main); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 6px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            scroll-margin-top: 20px;
+        }
+        .card.dead { border-left: 4px solid var(--dead-color); }
+        .card.alive { border-left: 4px solid var(--accent); }
+        .card.main-line-axis { background-color: var(--gold-bg); border: 1px solid var(--gold-main) !important; border-left: 4px solid var(--gold-main) !important; }
+        .card.main-line-female { background-color: var(--silver-bg); border: 1px solid #5fa2dd !important; border-left: 4px solid #5fa2dd !important; }
+
+        .card-info h5 { margin: 0 0 4px 0; font-size: 1.05rem; }
+        .card-info p { margin: 2px 0; font-size: 0.85rem; color: #555; }
+        .card-info a { color: var(--accent); text-decoration: none; }
+        .card-info a:hover { text-decoration: underline; }
+
+        .card-meta { text-align: right; flex-shrink: 0; }
+        .badge-status { display: inline-block; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; margin-bottom: 5px; }
+        .dead .badge-status { background: #f9d5d5; color: var(--dead-color); }
+        .alive .badge-status { background: #d5e8f9; color: var(--accent); }
+        .badge-type { font-size: 0.65rem; color: #7f8c8d; text-transform: uppercase; block-size: max-content; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Генеалогическая реконструкция по III Ревизии</h1>
+        <div class="meta-source">Преображенский завод • Оренбургская губерния</div>
+    </header>
+
+    <div class="workspace-layout">
+
+        <!-- КОЛОНКА А: ПЕРВОИСТОЧНИК -->
+        <section class="archive-source-box">
+            <h3>📄 Архивный первоисточник (Транскрипт)</h3>
+            <div class="archive-meta">РГАДА. Ф. 350. Оп. 2. Кн. 2456. Л. 203</div>
+
+            <div class="document-text">
+                <span class="doc-line"><strong>Написанный в прежнюю ревизию:</strong></span>
+                <span class="doc-line" id="src_pavel"><strong>Павел Герасимов сын Щипакин</strong> — умре в 1760-м году.</span>
+
+                <span class="doc-line">У него дети, написанные в прежнюю ревизию:</span>
+                <span class="doc-line" id="src_boris"><strong>Борис</strong> — умре в 1755-м году.</span>
+                <span class="doc-line" id="src_trofim"><strong>Трофим</strong> — умре в 1756-м году.</span>
+
+                <span class="doc-line">Борисова жена <strong>Пелагея Никитина дочь</strong>, пятидесяти одного году. Взятая Симбирского уезда деревни Тимошкиной у крестьянина.</span>
+                <span class="doc-line">У него ж, Бориса, сын, рожденный после ревизии: <strong>Михаил</strong>, двадцати трех лет.</span>
+
+                <span class="doc-line" id="src_stepanida">Трофимова жена <strong>Степанида Иванова дочь</strong>, тридцати одного году. Взятая Симбирского уезда деревни Тимошкиной у крестьянина.</span>
+
+                <span class="doc-line">У него ж, Трофима, дети, рожденные после ревизии:</span>
+                <span class="doc-line" id="src_ivan"><strong>Иван</strong> — двадцати одного году.</span>
+                <span class="doc-line"><strong>Кирила</strong> — девяти лет.</span>
+                <span class="doc-line">Дочь <strong>Прасковья</strong> — семнадцати лет.</span>
+
+                <span class="doc-line" id="src_ofimya">Иванова жена <strong>Офимья Семенова дочь</strong>, двадцати одного году. Взятая Нижегородского уезда села Егорьевского у крестьянина.</span>
+            </div>
+        </section>
+
+        <!-- КОЛОНКА Б: РЕКОНСТРУКЦИЯ ДВОРА -->
+        <main class="yard-container">
+            <div class="yard-header">
+                <h3 class="yard-title">🏠 Двор № (по листу 203)</h3>
+                <span class="yard-badge">ЩИПАКИНЫ</span>
+            </div>
+
+            <!-- Стержень этого конкретного двора -->
+            <section class="axis-vertical-box">
+                <h4>🎯 Вертикальная ось двора</h4>
+                <div class="tree-vertical">
+                    <div class="tree-level">
+                        <div class="level-num">Лвл 1</div>
+                        <div class="level-content">
+                            <a href="#card_pavel" class="node-link"><div class="node-p male">Павел Герасимов (†1760)</div></a>
+                        </div>
+                    </div>
+                    <div class="tree-level">
+                        <div class="level-num">Лвл 2</div>
+                        <div class="level-content">
+                            <a href="#card_trofim" class="node-link"><div class="node-p male">Трофим Павлов (†1756)</div></a>
+                            <a href="#card_stepanida" class="node-link"><div class="node-p female">Степанида Иванова (31)</div></a>
+                        </div>
+                    </div>
+                    <div class="tree-level">
+                        <div class="level-num">Лвл 3</div>
+                        <div class="level-content">
+                            <a href="#card_ivan" class="node-link"><div class="node-p male active">Иван Трофимов (21)</div></a>
+                            <a href="#card_ofimya" class="node-link"><div class="node-p female">Офимья Семенова (21)</div></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="yard-residents-title">👨‍👩‍👧‍👦 Состав домохозяйства (Генеалогические карточки)</div>
+            <div class="grid">
+
+                <!-- Павел -->
+                <div class="card dead main-line-axis" id="card_pavel">
+                    <div class="card-info">
+                        <h5>Павел Герасимов Щипакин</h5>
+                        <p><strong>Возраст:</strong> умре в 1760 г. (~78 лет)</p>
+                        <p>Глава двора, зафиксированный в предыдущей (II) ревизии.</p>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-status">УМРЕ</span><br>
+                        <span class="badge-type">Глава оси</span>
+                    </div>
+                </div>
+
+                <!-- Борис -->
+                <div class="card dead" id="card_boris">
+                    <div class="card-info">
+                        <h5>Борис Павлов Щипакин</h5>
+                        <p><strong>Возраст:</strong> умре в 1755 г.</p>
+                        <p>Старший сын Павла. Старшая (боковая) ветвь двора.</p>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-status">УМРЕ</span><br>
+                        <span class="badge-type">Сын (1-я ветвь)</span>
+                    </div>
+                </div>
+
+                <!-- Трофим -->
+                <div class="card dead main-line-axis" id="card_trofim">
+                    <div class="card-info">
+                        <h5>Трофим Павлов Щипакин</h5>
+                        <p><strong>Возраст:</strong> умре в 1756 г.</p>
+                        <p>Второй сын Павла. Прямое звено нашей главной линии.</p>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-status">УМРЕ</span><br>
+                        <span class="badge-type">Сын (Ось)</span>
+                    </div>
+                </div>
+
+                <!-- Вдова Степанида -->
+                <div class="card alive main-line-female" id="card_stepanida">
+                    <div class="card-info">
+                        <h5>Степанида Иванова дочь</h5>
+                        <p><strong>Возраст:</strong> 31 год (~1733 г.р.) • Вдова Трофима</p>
+                        <p><strong>Пришлась:</strong> из деревни Тимошкиной, Симбирский уезд.</p>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-status">31 ГОД</span><br>
+                        <span class="badge-type">Сноха (Ось)</span>
+                    </div>
+                </div>
+
+                <!-- Иван Трофимов -->
+                <div class="card alive main-line-axis" id="card_ivan">
+                    <div class="card-info">
+                        <h5>Иван Трофимов Щипакин</h5>
+                        <p><strong>Возраст:</strong> 21 год (~1742 г.р.)</p>
+                        <p>Сын Трофима. Рожден после II ревизии. Текущий продолжатель оси.</p>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-status">21 ГОД</span><br>
+                        <span class="badge-type">Внук (Ось)</span>
+                    </div>
+                </div>
+
+                <!-- Офимья Семенова -->
+                <div class="card alive main-line-female" id="card_ofimya">
+                    <div class="card-info">
+                        <h5>Офимья Семенова дочь</h5>
+                        <p><strong>Возраст:</strong> 21 год (~1741 г.р.) • Жена Ивана</p>
+                        <p><strong>Пришлась:</strong> из села Егорьевского, Нижегородский уезд.</p>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge-status">21 ГОД</span><br>
+                        <span class="badge-type">Жена внука</span>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+</div>
+
+</body>
+</html>
